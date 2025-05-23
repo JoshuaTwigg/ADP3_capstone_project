@@ -16,7 +16,7 @@ class RoomFactoryTest {
 
     @BeforeEach
     public void setUp() {
-        room = RoomFactory.createRoom("A101", "Single", 100.0f, true, "WiFi, TV");
+        room = RoomFactory.createRoom(12, "Single", 100.0f, true, "WiFi, TV");
     }
 
     @Test
@@ -40,7 +40,7 @@ class RoomFactoryTest {
 
     @Test
     public void testPrice() {
-        String roomID = "A104";
+        int roomID = 12;
         String roomType = "Economy";
         float roomPrice = 0;
         boolean availability = true;
@@ -52,7 +52,7 @@ class RoomFactoryTest {
 
     @Test
     public void testEmptyFeatures() {
-        String roomID = " ";
+        int roomID = 12;
         String roomType = " ";
         float roomPrice = 150.0f;
         boolean availability = true;
@@ -64,7 +64,7 @@ class RoomFactoryTest {
 
     @Test
     public void testEqualityOfObjects() {
-        String roomID = "";
+        int roomID = 12;
         String roomType = "";
         float roomPrice = 0;
         boolean availability = false;

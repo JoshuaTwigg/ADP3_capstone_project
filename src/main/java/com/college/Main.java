@@ -28,15 +28,34 @@ Muaath Slamong      | Housekeeper classes           |
 
 package com.college;
 
-public class Main {
-    public static void main(String[] args) {
-        String line = "-------------------------------------------------------------------";
+import com.college.factory.RoomFactory;
+import com.college.domain.Room;
+import com.college.repository.RoomRepositoryJpa;
+import com.college.service.RoomService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.SpringApplication;
+import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.context.ApplicationContext;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-        System.out.println();
-        System.out.println(line);
-        System.out.println("\nGo to the 'test' package to view the tests for the factory and " +
-                "repository design patterns");
-        System.out.println("\nNOTE: \nFind information about the group members in the block-comment above");
-        System.out.println(line);
+
+@SpringBootApplication
+public class Main {
+
+
+    public static void main(String[] args) {
+
+        ApplicationContext context = SpringApplication.run(Main.class, args);
+
+//        String line = "-------------------------------------------------------------------";
+//
+//        System.out.println();
+//        System.out.println(line);
+//        System.out.println("\nGo to the 'test' package to view the tests for the factory and " +
+//                "repository design patterns");
+//        System.out.println("\nNOTE: \nFind information about the group members in the block-comment above");
+//        System.out.println(line);
+
     }
 }

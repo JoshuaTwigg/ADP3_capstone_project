@@ -9,7 +9,9 @@ package com.college.repository;
 import com.college.domain.Room;
 import java.util.HashMap;
 
-public class RoomRepository implements IRepository<Room, String> {
+@Deprecated
+public class RoomRepository implements IRepository<Room, Integer> {
+
     private static RoomRepository instance;  // Singleton instance
     private HashMap<String, Room> map;
 
@@ -36,45 +38,51 @@ public class RoomRepository implements IRepository<Room, String> {
         return map;
     }
 
+
     @Override
     public Room create(Room obj) {
-        map.put(obj.getRoomID(), obj);
-        System.out.println("Room added to repository");
+
+//        map.put(obj);
+//        System.out.println("Room added to repository");
         return obj;
+
     }
 
     @Override
-    public Room read(String id) {
-        Room room = map.get(id);
+    public Room read(Integer integer) {
+
+        Room room = map.get(integer);
         if (room == null) {
             System.out.println("Room does not exist");
             return null;
         }
         System.out.println("Room read from repository" + " " + room + "\n");
         return room;
+
     }
 
     @Override
-    public Room update(Room obj){ return null; }
-    // overload
-    public Room update(String id, Room obj) {
-        if(map.containsKey(id)) {
-            map.put(id, obj);
-            System.out.println("Room updated");
-        }else{
-            System.out.println("Room does not exist");
-        }
+    public Room update(Room obj) {
+
+//        if (map.containsKey(obj)) {
+//            map.put(obj, obj); // update the room
+//            System.out.println("Room updated");
+//        } else {
+//            System.out.println("Room does not exist");
+//        }
 
         return obj;
     }
 
     @Override
-    public boolean delete(String id) {
-        if (map.remove(id) != null) {
+    public boolean delete(Integer integer) {
+
+        if (map.remove(integer) != null) {
             System.out.println("Room deleted");
             return true;
         } else {
             return false;
         }
+
     }
 }

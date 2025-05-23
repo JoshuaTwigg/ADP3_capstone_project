@@ -24,8 +24,8 @@ public class RoomRepositoryTest {
 
         roomRepository = RoomRepository.getInstance();
 
-        roomOne = RoomFactory.createRoom("A101", "Single", 100.0f, true, "WiFi, TV");
-        roomTwo = RoomFactory.createRoom("A102", "double", 10.0f, true, "Swimming Pool");
+        roomOne = RoomFactory.createRoom(12, "Single", 100.0f, true, "WiFi, TV");
+        roomTwo = RoomFactory.createRoom(14, "double", 10.0f, true, "Swimming Pool");
 
         roomRepository.create(roomOne);
         roomRepository.create(roomTwo);
@@ -47,7 +47,7 @@ public class RoomRepositoryTest {
     @Test
     public void testReadRoom() {
 
-        Room retrievedRoom = roomRepository.read("A101");
+        Room retrievedRoom = roomRepository.read(12);
         assertNotNull(retrievedRoom);
         assertEquals("A101", retrievedRoom.getRoomID());
         assertEquals("Single", retrievedRoom.getRoomType());
@@ -59,10 +59,10 @@ public class RoomRepositoryTest {
     @Test
     public void testUpdateRoom() {
 
-        Room updatedRoom = RoomFactory.createRoom("A101", "Single", 150.0f, true, "WiFi, TV, Refrigerator");
-        roomRepository.update("A101", updatedRoom);
+        Room updatedRoom = RoomFactory.createRoom(12, "Single", 150.0f, true, "WiFi, TV, Refrigerator");
+//        roomRepository.update(12, updatedRoom);
 
-        Room retrievedRoom = roomRepository.read("A101");
+        Room retrievedRoom = roomRepository.read(12);
         assertNotNull(retrievedRoom);
         assertEquals(150.0f, retrievedRoom.getPricePerNight());
         assertEquals("WiFi, TV, Refrigerator", retrievedRoom.getFeatures());
@@ -71,10 +71,10 @@ public class RoomRepositoryTest {
     @Test
     public void testDeleteRoom() {
 
-        boolean isDeleted = roomRepository.delete("A102");
+        boolean isDeleted = roomRepository.delete(12);
         assertTrue(isDeleted);
 
-        Room retrievedRoom = roomRepository.read("B102");
+        Room retrievedRoom = roomRepository.read(12);
         assertNull(retrievedRoom);
     }
 }
