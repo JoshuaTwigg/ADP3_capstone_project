@@ -5,6 +5,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.image.Image;
 
 
 public class RoomView extends Application {
@@ -40,6 +41,9 @@ public class RoomView extends Application {
         Scene scene = new Scene(root);
 
         scene.getStylesheets().add(getClass().getResource("/css/buttonStyle.css").toExternalForm());
+
+        Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
+        stage.getIcons().add(icon);
 
         stage.setScene(scene);
         stage.show();
