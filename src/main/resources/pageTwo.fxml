@@ -267,10 +267,12 @@
 
             </children>
         </GridPane>
-
         <Button text="Page 2" onAction="#nextPage"
                 AnchorPane.bottomAnchor="10"
-                layoutX="250" />
-
+                layoutX="320" />
+        <Button text="Back" onAction="#goBack"
+                AnchorPane.bottomAnchor="10"
+                layoutX="200" />
     </children>
 </AnchorPane>
+
