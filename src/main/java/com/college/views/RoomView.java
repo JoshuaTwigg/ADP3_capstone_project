@@ -1,42 +1,37 @@
 package com.college.views;
 
+import com.college.controller.RoomController;
 import javafx.application.Application;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.stage.Stage;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.image.Image;
-
+import javafx.stage.Stage;
+import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.context.ConfigurableApplicationContext;
 
 public class RoomView extends Application {
+
+    private ConfigurableApplicationContext springContext;
+
     public static void main(String[] args) {
         launch(args);
     }
 
-    //2 ways manual way, or scene builder way. prob use scenebuilder cause everyone else prob has to for proj
+    @Override
+    public void init() {
+        // Start Spring before JavaFX
+        springContext = new SpringApplicationBuilder(com.college.Main.class)
+                .run(); // your SpringBootApplication class
+    }
 
     @Override
     public void start(Stage stage) throws Exception {
-//        Label label = new Label("Hello, JavaFX!");
-//        StackPane root = new StackPane(label);
-
-//        stage.setTitle("Room Booking");
-//        Group root = new Group(); // group of nodes
-
-
-        //scene + icon
-//        Scene scene = new Scene(root, Color.BLACK);
-//        Image icon = new Image(getClass().getResourceAsStream("/icon.png"));
-//        stage.getIcons().add(icon);
-//
-//        //stage
-//        stage.setWidth(800);
-//        stage.setHeight(800);
-
-
-
-        //run scenebuilder instead
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/MainView.fxml"));
+
+        // Give FXMLLoader access to Spring beans
+        loader.setControllerFactory(springContext::getBean);
+
         Parent root = loader.load();
         Scene scene = new Scene(root);
 
@@ -46,13 +41,31 @@ public class RoomView extends Application {
         stage.getIcons().add(icon);
 
         stage.setScene(scene);
-//        stage.setWidth(1000); Ammar res
-//        stage.setHeight(600);
+        // stage.setWidth(1000); Ammar res
+        // stage.setHeight(600);
         stage.show();
+    }
 
-
-        //run
-//        stage.setScene(scene);
-//        stage.show();
+    @Override
+    public void stop() {
+        // Gracefully shutdown Spring when JavaFX exits
+        springContext.close();
     }
 }
+//1
+//had to add  @Override
+//    public void init() {
+//        // Start Spring before JavaFX
+//        springContext = new SpringApplicationBuilder(com.college.Main.class)
+//                .run(); // your SpringBootApplication class
+//    }
+
+//2
+//had to replace @restfulcontroller in room controller with @ component\\
+
+
+//init() method starts Spring before FXMLLoader tries to fetch beans.
+//
+//loader.setControllerFactory(springContext::getBean); now works because Spring knows about RoomController.
+//
+//stop() closes Spring cleanly when the app exits.

@@ -18,12 +18,14 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.HBox;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.io.IOException;
 
-@RestController
+//@RestController idk if this wil break old code. cause nowit needs to be @component to work with javafx ui
+@Component
 public class RoomController {
 
     @Autowired
@@ -75,6 +77,26 @@ public class RoomController {
     private void handleVipClick() {
         System.out.println("Button clicked!");
         buttonVip.setText("Clicked!");
+
+        //get values from label, still needs specific label idk how yet event src?
+        String priceText = priceLabel.getText();
+        String typeText = typeLabel.getText();
+        String availabilityText = availabilityLabel.getText();
+        String featuresText = featuresLabel.getText();
+
+        // Extract the actual values
+        String roomType = typeText.replace("Room Type:", "").trim();
+        float price = Float.parseFloat(priceText.replaceAll("[^\\d.]", "")); // removes "Price Per Night: R"
+        boolean available = availabilityText.toLowerCase().contains("available");
+        String features = featuresText.replace("Features:", "").trim();
+
+
+        Room roomOne = RoomFactory.createRoom(
+                51, roomType, price, available, features);
+
+        System.out.println(roomOne.toString());
+        roomService.create(roomOne);
+
     }
 
     @FXML
